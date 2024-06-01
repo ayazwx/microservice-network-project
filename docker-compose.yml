@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    container_name: postgres_db
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_db:/var/lib/data
+
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    restart: always
+    container_name: rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    env_file:
+      - .env
+    volumes:
+      - rabbitmq:/var/lib/data
+
+volumes:
+    postgres_db:
+    rabbitmq:
